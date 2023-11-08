@@ -28,28 +28,31 @@ public class Decompression {
 //______________________________________________________________________________________________________________________
 
     public String decompress() {
+        StringBuilder result = new StringBuilder();
+        int previousTag = tags.get(0); // Initialize with the first tag
+        String previous = dictionary.get(previousTag);
+        result.append(previous);
 
-        String t = ""; // Initialize 't'
+        for (int i = 1; i < tags.size(); i++) {
+            int currentTag = tags.get(i);
 
-        for (int s : tags) {
-            if (s < 128){
-                t = String.valueOf((char) s); // Append directly without resetting 't'
-            }
-            else if (!dictionary.containsKey(s)){
-                t = t + t.charAt(0); // Append first character of 't'
-            }
-            else {
-                t = dictionary.get(s); // Assign 't' based on the dictionary value for 's'
+            String current;
+            if (dictionary.containsKey(currentTag)) {
+                current = dictionary.get(currentTag);
+            } else {
+                current = previous + previous.charAt(0); // For early LZW implementations
             }
 
-            text = text.concat(t);
+            result.append(current);
 
-            // Update dictionary
-            if (!dictionary.containsValue(t + t.charAt(0))) {
-                dictionary.put(dictSize++, t + t.charAt(0));
-            }
+            // Add new entry to the dictionary
+            String entry = previous + current.charAt(0);
+            dictionary.put(dictionary.size(), entry);
+
+            previous = current;
         }
-        return text;
+
+        return result.toString();
     }
 
 
