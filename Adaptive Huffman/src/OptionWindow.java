@@ -37,7 +37,9 @@ public class OptionWindow extends JDialog implements ActionListener {
         if (file == null) {
             dispose();
         }
+
         label.setText("File Name : " + file.getName());
+        readFile();
         label.setFont(new Font("Comic Sans",Font.BOLD,18));
         label.setIconTextGap(-15);
 
@@ -75,8 +77,37 @@ public class OptionWindow extends JDialog implements ActionListener {
         });
     }
 
+    //---------------------------------------------------------
+
     @Override
     public void actionPerformed(ActionEvent actionEvent) {
 
     }
+
+    //---------------------------------------------------------
+
+    public void readFile(){
+
+        try (BufferedReader br = new BufferedReader(new FileReader(file))) {
+            String line;
+            while ((line = br.readLine()) != null) {
+                text = text.concat(line);
+                text =text.concat("\n");
+            }
+        } catch (IOException e) {
+            e.printStackTrace(); // Handle the exception
+        }
+    }
+
+    //---------------------------------------------------------
+    public void compress(){
+
+    }
+
+    //---------------------------------------------------------
+
+    public void decompress(){
+        // TODO
+    }
+
 }
