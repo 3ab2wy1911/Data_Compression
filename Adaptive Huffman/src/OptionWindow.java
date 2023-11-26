@@ -29,6 +29,7 @@ public class OptionWindow extends JDialog implements ActionListener {
 
 
         this.file = file;
+        this.text = "";
         this.setDefaultCloseOperation(DISPOSE_ON_CLOSE);
         this.setLayout(new FlowLayout());
         this.pack();
@@ -38,8 +39,10 @@ public class OptionWindow extends JDialog implements ActionListener {
             dispose();
         }
 
+        assert file != null;
         label.setText("File Name : " + file.getName());
         readFile();
+//        label.setText(text);  Just to check the text.
         label.setFont(new Font("Comic Sans",Font.BOLD,18));
         label.setIconTextGap(-15);
 
@@ -101,7 +104,9 @@ public class OptionWindow extends JDialog implements ActionListener {
 
     //---------------------------------------------------------
     public void compress(){
+        for (char c : text.toCharArray()){
 
+        }
     }
 
     //---------------------------------------------------------
