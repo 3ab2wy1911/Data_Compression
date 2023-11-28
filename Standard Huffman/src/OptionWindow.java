@@ -2,6 +2,9 @@ import Classes.Huffman;
 import java.awt.*;
 import java.awt.event.*;
 import java.io.*;
+import java.math.BigInteger;
+import java.nio.charset.StandardCharsets;
+import java.util.Arrays;
 import java.util.List;
 import java.util.Vector;
 import javax.swing.*;
@@ -41,7 +44,6 @@ public class OptionWindow extends JDialog implements ActionListener {
 
         assert file != null;
         label.setText("File Name : " + file.getName());
-        readFile();
         label.setFont(new Font("Comic Sans",Font.BOLD,18));
         label.setIconTextGap(-15);
 
@@ -64,6 +66,7 @@ public class OptionWindow extends JDialog implements ActionListener {
         //--------------------------------------------------
 
         compressButton.addActionListener(actionEvent -> {
+            readFile();
             Huffman huffman = new Huffman(text.replace(" ", ""));
             System.out.println(huffman.encode());
             writeBinaryFile(toBinary(huffman.encode()));
@@ -72,6 +75,7 @@ public class OptionWindow extends JDialog implements ActionListener {
         //---------------------------------------------------------
         decompressButton.addActionListener(actionEvent -> {
             // do el7agat bta3t el decompress.
+            readBinaryFile();
         });
     }
 
@@ -91,11 +95,43 @@ public class OptionWindow extends JDialog implements ActionListener {
                 text = text.concat(line);
             }
         } catch (IOException e) {
-            e.printStackTrace(); // Handle the exception
+            System.out.println(e.getMessage()); // Handle the exception
         }
     }
 
     //---------------------------------------------------------
+
+    private void readBinaryFile(){
+        try {
+            FileInputStream fos = new FileInputStream("Output.bin");
+            byte[] binaryArray = new byte[fos.available()];
+            if(fos.read(binaryArray) == -1){
+                System.out.println("There are not data to read");
+                return;
+            }
+            System.out.println("Binary data has been successfully");
+
+            // convert hex to binary string
+            StringBuilder binaryString = new StringBuilder();
+            for (int i = 0; i < binaryArray.length; i++) {
+                if (i == binaryArray.length - 1){
+                    String binary = String.format("%8s", Integer.toBinaryString(binaryArray[i] & 0xFF)).replace(" ", "");
+                    binaryString.append(binary);
+                    break;
+                }
+                String binary = String.format("%8s", Integer.toBinaryString(binaryArray[i] & 0xFF)).replace(' ', '0');
+                binaryString.append(binary);
+            }
+
+            text = binaryString.toString() ;
+            fos.close();
+        } catch (IOException e) {
+            System.out.println(e.getMessage());
+        }
+    }
+
+    //---------------------------------------------------------
+
     public List<Byte> toBinary(String txt) {
         int length = txt.length();
         List<Byte> bytes = new Vector<>();
@@ -109,7 +145,12 @@ public class OptionWindow extends JDialog implements ActionListener {
                 byteString = txt.substring(i) ;
             }
 
-            byte b = (byte) Integer.parseInt(byteString, 2);
+            // Using BigInteger to preserve leading zeros
+            BigInteger bigInt = new BigInteger(byteString, 2);
+            byte[] byteArray = bigInt.toByteArray();
+
+            // If the byteArray has more than one element, only take the last one
+            byte b = byteArray[byteArray.length - 1];
             bytes.add(b);
         }
         return bytes;
@@ -127,12 +168,12 @@ public class OptionWindow extends JDialog implements ActionListener {
             // Convert binary string to bytes
 
             // Write binary data to a file
-            try (FileOutputStream fos = new FileOutputStream("Output")) {
+            try (FileOutputStream fos = new FileOutputStream("Output.bin")) {
                 fos.write(binaryArray);
                 System.out.println("Binary data has been successfully");
             }
         } catch (IOException e) {
-            e.printStackTrace();
+            System.out.println(e.getMessage());
         }
     }
 
