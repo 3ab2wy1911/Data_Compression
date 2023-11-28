@@ -2,15 +2,9 @@ import Classes.Huffman;
 import java.awt.*;
 import java.awt.event.*;
 import java.io.*;
-import java.math.BigInteger;
-import java.nio.charset.StandardCharsets;
-import java.nio.file.Files;
 import java.util.*;
-import java.util.List;
 import javax.swing.*;
 import javax.swing.JPanel;
-
-import static java.lang.System.in;
 
 public class OptionWindow extends JDialog implements ActionListener {
     private JButton compressButton;
@@ -72,7 +66,7 @@ public class OptionWindow extends JDialog implements ActionListener {
             readFile();
             Huffman huffman = new Huffman(text);
             String compressedText = huffman.encode(huffmanFrequencies) ;
-            System.out.println(compressedText);
+            System.out.println("The compressed text is -> " + compressedText);
             writeBinaryFile(huffmanFrequencies, compressedText);
         });
 
@@ -82,7 +76,7 @@ public class OptionWindow extends JDialog implements ActionListener {
             Map<Character, Integer> huffmanFrequencies = readBinaryFile();
             Huffman huffman = new Huffman(text);
             writeToFile(text);
-            System.out.println(huffman.decode(huffmanFrequencies));
+            System.out.println("The original text is -> " + huffman.decode(huffmanFrequencies));
             writeToFile(huffman.decode(huffmanFrequencies)) ;
         });
     }
@@ -132,14 +126,15 @@ public class OptionWindow extends JDialog implements ActionListener {
             DataInputStream din = new DataInputStream(fis);
 
             while (din.available() > 0) {
-                char character = (char) din.readByte();
+                char character = (char)din.readByte();
+                if (character == '\n') {
+                    break;
+                }
+
                 int frequency = din.readByte();
 
                 // Add the character and frequency to the map
                 huffmanFrequencies.put(character, frequency);
-
-                // Skip the newline character
-                din.readByte();
             }
 
             // Read the compressed text
@@ -148,10 +143,9 @@ public class OptionWindow extends JDialog implements ActionListener {
             while ((c = din.read()) != -1) {
                 compressedText.append((char) c);
             }
-            System.out.println(huffmanFrequencies);
             text = compressedText.toString() ;
         } catch (IOException e) {
-            e.printStackTrace();
+            System.out.println(e.getMessage());
         }
 
         return huffmanFrequencies;
@@ -165,9 +159,10 @@ public class OptionWindow extends JDialog implements ActionListener {
             DataOutputStream dout = new DataOutputStream(fos);
 
             for (Map.Entry<Character, Integer> entry : huffmanFrequencies.entrySet()) {
-                dout.writeChar(entry.getKey());
-                dout.writeInt(entry.getValue());
+                dout.writeByte((byte) ((char) entry.getKey()));
+                dout.writeByte((byte) ((int) entry.getValue()));
             }
+            dout.writeByte((byte) '\n');
             dout.writeBytes(compressedText);
             dout.close();
         }
