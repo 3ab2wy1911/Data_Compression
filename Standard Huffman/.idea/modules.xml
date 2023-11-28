@@ -2,7 +2,7 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/Adaptive Huffman.iml" filepath="$PROJECT_DIR$/Adaptive Huffman.iml" />
+      <module fileurl="file://$PROJECT_DIR$/Standard Huffman.iml" filepath="$PROJECT_DIR$/Standard Huffman.iml" />
     </modules>
   </component>
 </project>

@@ -1,10 +1,12 @@
 import Classes.Huffman;
-
 import java.awt.*;
 import java.awt.event.*;
 import java.io.*;
+import java.util.List;
+import java.util.Vector;
 import javax.swing.*;
 import javax.swing.JPanel;
+
 public class OptionWindow extends JDialog implements ActionListener {
     private JButton compressButton;
     private JButton decompressButton;
@@ -62,9 +64,9 @@ public class OptionWindow extends JDialog implements ActionListener {
         //--------------------------------------------------
 
         compressButton.addActionListener(actionEvent -> {
-            Huffman huffman = new Huffman(text);
-            writeBinaryFile(toBinary(huffman.encode()));
+            Huffman huffman = new Huffman(text.replace(" ", ""));
             System.out.println(huffman.encode());
+            writeBinaryFile(toBinary(huffman.encode()));
         });
 
         //---------------------------------------------------------
@@ -83,12 +85,10 @@ public class OptionWindow extends JDialog implements ActionListener {
     //---------------------------------------------------------
 
     public void readFile(){
-
         try (BufferedReader br = new BufferedReader(new FileReader(file))) {
             String line;
             while ((line = br.readLine()) != null) {
                 text = text.concat(line);
-                text =text.concat("\n");
             }
         } catch (IOException e) {
             e.printStackTrace(); // Handle the exception
@@ -96,27 +96,39 @@ public class OptionWindow extends JDialog implements ActionListener {
     }
 
     //---------------------------------------------------------
-    public byte[] toBinary(String txt) {
+    public List<Byte> toBinary(String txt) {
         int length = txt.length();
-        byte[] bytes = new byte[length / 8];
+        List<Byte> bytes = new Vector<>();
 
         for (int i = 0; i < length; i += 8) {
-            String byteString = txt.substring(i, i + 8);
+            String byteString ;
+            if (i + 8 < length){
+                byteString = txt.substring(i, i + 8);
+            }
+            else{
+                byteString = txt.substring(i) ;
+            }
+
             byte b = (byte) Integer.parseInt(byteString, 2);
-            bytes[i / 8] = b;
+            bytes.add(b);
         }
         return bytes;
     }
 
     //---------------------------------------------------------
 
-    public void writeBinaryFile(byte [] binaryString ){
+    public void writeBinaryFile(List<Byte> binaryString ){
+        byte[] binaryArray = new byte[binaryString.size()];
+        for (int i = 0; i < binaryString.size(); i++) {
+            binaryArray[i] = binaryString.get(i) ;
+        }
+
         try {
             // Convert binary string to bytes
 
             // Write binary data to a file
             try (FileOutputStream fos = new FileOutputStream("Output")) {
-                fos.write(binaryString);
+                fos.write(binaryArray);
                 System.out.println("Binary data has been successfully");
             }
         } catch (IOException e) {
