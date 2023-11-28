@@ -67,15 +67,17 @@ public class OptionWindow extends JDialog implements ActionListener {
 
         compressButton.addActionListener(actionEvent -> {
             readFile();
-            Huffman huffman = new Huffman(text.replace(" ", ""));
+            Huffman huffman = new Huffman(text);
             System.out.println(huffman.encode());
             writeBinaryFile(toBinary(huffman.encode()));
         });
 
         //---------------------------------------------------------
         decompressButton.addActionListener(actionEvent -> {
-            // do el7agat bta3t el decompress.
             readBinaryFile();
+            Huffman huffman = new Huffman(text);
+//            System.out.println(huffman.decode());
+//            writeToFile(huffman.decode()) ;
         });
     }
 
@@ -96,6 +98,24 @@ public class OptionWindow extends JDialog implements ActionListener {
             }
         } catch (IOException e) {
             System.out.println(e.getMessage()); // Handle the exception
+        }
+    }
+
+    //---------------------------------------------------------
+
+    public void writeToFile(String content){
+        if (text == null) {
+            System.out.println("Error Occurred during writing !!!");
+            return;
+        }
+
+        // ----------------------------------------------------
+
+        // Writing the content to a file
+        try (BufferedWriter writer = new BufferedWriter(new FileWriter("Output.txt"))) {
+            writer.write(text);
+        } catch (IOException e) {
+            System.out.println(e.getMessage()); // Handle the exception as needed (print, log, or throw)
         }
     }
 
