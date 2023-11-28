@@ -1,3 +1,5 @@
+import Classes.Huffman;
+
 import java.awt.*;
 import java.awt.event.*;
 import java.io.*;
@@ -8,11 +10,7 @@ public class OptionWindow extends JDialog implements ActionListener {
     private JButton decompressButton;
     private JPanel panel;
     private JLabel label;
-    private JLabel chooseLabel;
-//    private JLabel chooseLabel;
-
-    //    int operation;
-    private File file = null;
+    private final File file;
     private String text;
 
     public OptionWindow(JFrame parent, File file) {
@@ -42,7 +40,6 @@ public class OptionWindow extends JDialog implements ActionListener {
         assert file != null;
         label.setText("File Name : " + file.getName());
         readFile();
-//        label.setText(text);  Just to check the text.
         label.setFont(new Font("Comic Sans",Font.BOLD,18));
         label.setIconTextGap(-15);
 
@@ -64,19 +61,15 @@ public class OptionWindow extends JDialog implements ActionListener {
 
         //--------------------------------------------------
 
-        compressButton.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent actionEvent) {
-                // do el7agat bta3t el compress.
-            }
+        compressButton.addActionListener(actionEvent -> {
+            Huffman huffman = new Huffman(text);
+            writeBinaryFile(toBinary(huffman.encode()));
+            System.out.println(huffman.encode());
         });
 
         //---------------------------------------------------------
-        decompressButton.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent actionEvent) {
-                // do el7agat bta3t el decompress.
-            }
+        decompressButton.addActionListener(actionEvent -> {
+            // do el7agat bta3t el decompress.
         });
     }
 
@@ -103,16 +96,32 @@ public class OptionWindow extends JDialog implements ActionListener {
     }
 
     //---------------------------------------------------------
-    public void compress(){
-        for (char c : text.toCharArray()){
+    public byte[] toBinary(String txt) {
+        int length = txt.length();
+        byte[] bytes = new byte[length / 8];
 
+        for (int i = 0; i < length; i += 8) {
+            String byteString = txt.substring(i, i + 8);
+            byte b = (byte) Integer.parseInt(byteString, 2);
+            bytes[i / 8] = b;
         }
+        return bytes;
     }
 
     //---------------------------------------------------------
 
-    public void decompress(){
-        // TODO
+    public void writeBinaryFile(byte [] binaryString ){
+        try {
+            // Convert binary string to bytes
+
+            // Write binary data to a file
+            try (FileOutputStream fos = new FileOutputStream("Output")) {
+                fos.write(binaryString);
+                System.out.println("Binary data has been successfully");
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
 }
