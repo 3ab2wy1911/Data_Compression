@@ -2,6 +2,8 @@ import Classes.Huffman;
 import java.awt.*;
 import java.awt.event.*;
 import java.io.*;
+import java.nio.file.Files;
+import java.nio.file.Paths;
 import java.util.*;
 import javax.swing.*;
 import javax.swing.JPanel;
@@ -64,14 +66,15 @@ public class OptionWindow extends JDialog implements ActionListener {
         compressButton.addActionListener(actionEvent -> {
             Map<Character, Integer> huffmanFrequencies = new HashMap<>();
             readFile();
+
             Huffman huffman = new Huffman(text);
             String compressedText = huffman.encode(huffmanFrequencies) ;
             JOptionPane.showMessageDialog(OptionWindow.this,
                     "The compressed text is -> " + compressedText,
                     "Compression done Successfully!!!",
                     JOptionPane.INFORMATION_MESSAGE);
-//            System.out.println("The compressed text is -> " + compressedText);
             writeBinaryFile(huffmanFrequencies, compressedText);
+
             new MainWindow(null);
             dispose();
         });
@@ -81,14 +84,14 @@ public class OptionWindow extends JDialog implements ActionListener {
         decompressButton.addActionListener(actionEvent -> {
             Map<Character, Integer> huffmanFrequencies = readBinaryFile();
             Huffman huffman = new Huffman(text);
-            writeToFile(text);
+
             String decompressedText = huffman.decode(huffmanFrequencies);
             JOptionPane.showMessageDialog(OptionWindow.this,
                     "The decompressed text is -> " + decompressedText,
                     "Decompression done Successfully!!!",
                     JOptionPane.INFORMATION_MESSAGE);
-//            System.out.println("The original text is -> " + );
-            writeToFile(huffman.decode(huffmanFrequencies)) ;
+            writeToFile(decompressedText) ;
+
             new MainWindow(null);
             dispose();
         });
@@ -110,7 +113,11 @@ public class OptionWindow extends JDialog implements ActionListener {
                 text = text.concat(line);
             }
         } catch (IOException e) {
-            System.out.println(e.getMessage()); // Handle the exception
+            // Handle the exception
+            JOptionPane.showMessageDialog(OptionWindow.this,
+                    e.getMessage(),
+                    "Error at reading file !!!",
+                    JOptionPane.ERROR_MESSAGE);
         }
     }
 
@@ -118,15 +125,26 @@ public class OptionWindow extends JDialog implements ActionListener {
 
     public void writeToFile(String content){
         if (content == null) {
-            System.out.println("Error Occurred during writing !!!");
+            JOptionPane.showMessageDialog(OptionWindow.this,
+                    "There are no data to write",
+                    "Error at writing in file !!!",
+                    JOptionPane.ERROR_MESSAGE);
             return;
         }
 
         // Writing the content to a file
-        try (BufferedWriter writer = new BufferedWriter(new FileWriter("Output.txt"))) {
+        try{
+            if (!Files.exists(Paths.get(System.getProperty("user.dir") + "Output.txt"))){
+                Files.createFile(Paths.get(System.getProperty("user.dir") + "Output.txt")) ;
+            }
+            BufferedWriter writer = new BufferedWriter(new FileWriter("Output.txt")) ;
             writer.write(content);
+            writer.close();
         } catch (IOException e) {
-            System.out.println(e.getMessage()); // Handle the exception as needed (print, log, or throw)
+            JOptionPane.showMessageDialog(OptionWindow.this,
+                    e.getMessage(),
+                    "Error at writing in file !!!",
+                    JOptionPane.ERROR_MESSAGE);
         }
     }
 
@@ -152,13 +170,16 @@ public class OptionWindow extends JDialog implements ActionListener {
 
             // Read the compressed text
             StringBuilder compressedText = new StringBuilder();
-            int c;
-            while ((c = din.read()) != -1) {
-                compressedText.append((char) c);
+            int bit;
+            while ((bit = din.read()) != -1) {
+                compressedText.append((char) bit);
             }
             text = compressedText.toString() ;
         } catch (IOException e) {
-            System.out.println(e.getMessage());
+            JOptionPane.showMessageDialog(OptionWindow.this,
+                    e.getMessage(),
+                    "Error at reading binary file !!!",
+                    JOptionPane.ERROR_MESSAGE);
         }
 
         return huffmanFrequencies;
@@ -168,19 +189,25 @@ public class OptionWindow extends JDialog implements ActionListener {
 
     public void writeBinaryFile(Map<Character, Integer> huffmanFrequencies, String compressedText) {
         try {
-            FileOutputStream fos = new FileOutputStream("Output.bin");
-            DataOutputStream dout = new DataOutputStream(fos);
+            if (!Files.exists(Paths.get(System.getProperty("user.dir") + "Output.bin"))){
+                Files.createFile(Paths.get(System.getProperty("user.dir") + "Output.bin")) ;
+            }
+            FileOutputStream fileOutputStream = new FileOutputStream("Output.bin");
+            DataOutputStream dataOutputStream = new DataOutputStream(fileOutputStream);
 
             for (Map.Entry<Character, Integer> entry : huffmanFrequencies.entrySet()) {
-                dout.writeByte((byte) ((char) entry.getKey()));
-                dout.writeByte((byte) ((int) entry.getValue()));
+                dataOutputStream.writeByte((byte) ((char) entry.getKey()));
+                dataOutputStream.writeByte((byte) ((int) entry.getValue()));
             }
-            dout.writeByte((byte) '\n');
-            dout.writeBytes(compressedText);
-            dout.close();
+            dataOutputStream.writeByte((byte) '\n');
+            dataOutputStream.writeBytes(compressedText);
+            dataOutputStream.close();
         }
         catch (IOException e){
-            System.out.println(e.getMessage());
+            JOptionPane.showMessageDialog(OptionWindow.this,
+                    e.getMessage(),
+                    "Error at writing in binary file !!!",
+                    JOptionPane.ERROR_MESSAGE);
         }
     }
 }
