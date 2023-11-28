@@ -20,7 +20,7 @@ public class OptionWindow extends JDialog implements ActionListener {
         super(parent);
         setTitle("Huffman Adaptive Data Compression");
         setContentPane(panel);
-        setMinimumSize(new Dimension(500, 100));
+        setMinimumSize(new Dimension(600, 600));
         setLocationRelativeTo(parent);
         setDefaultCloseOperation(DISPOSE_ON_CLOSE);
         setVisible(true);
@@ -66,8 +66,14 @@ public class OptionWindow extends JDialog implements ActionListener {
             readFile();
             Huffman huffman = new Huffman(text);
             String compressedText = huffman.encode(huffmanFrequencies) ;
-            System.out.println("The compressed text is -> " + compressedText);
+            JOptionPane.showMessageDialog(OptionWindow.this,
+                    "The compressed text is -> " + compressedText,
+                    "Compression done Successfully!!!",
+                    JOptionPane.INFORMATION_MESSAGE);
+//            System.out.println("The compressed text is -> " + compressedText);
             writeBinaryFile(huffmanFrequencies, compressedText);
+            new MainWindow(null);
+            dispose();
         });
 
         //---------------------------------------------------------
@@ -76,8 +82,15 @@ public class OptionWindow extends JDialog implements ActionListener {
             Map<Character, Integer> huffmanFrequencies = readBinaryFile();
             Huffman huffman = new Huffman(text);
             writeToFile(text);
-            System.out.println("The original text is -> " + huffman.decode(huffmanFrequencies));
+            String decompressedText = huffman.decode(huffmanFrequencies);
+            JOptionPane.showMessageDialog(OptionWindow.this,
+                    "The decompressed text is -> " + decompressedText,
+                    "Decompression done Successfully!!!",
+                    JOptionPane.INFORMATION_MESSAGE);
+//            System.out.println("The original text is -> " + );
             writeToFile(huffman.decode(huffmanFrequencies)) ;
+            new MainWindow(null);
+            dispose();
         });
     }
 
