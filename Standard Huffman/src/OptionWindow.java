@@ -4,11 +4,13 @@ import java.awt.event.*;
 import java.io.*;
 import java.math.BigInteger;
 import java.nio.charset.StandardCharsets;
-import java.util.Arrays;
+import java.nio.file.Files;
+import java.util.*;
 import java.util.List;
-import java.util.Vector;
 import javax.swing.*;
 import javax.swing.JPanel;
+
+import static java.lang.System.in;
 
 public class OptionWindow extends JDialog implements ActionListener {
     private JButton compressButton;
@@ -66,18 +68,22 @@ public class OptionWindow extends JDialog implements ActionListener {
         //--------------------------------------------------
 
         compressButton.addActionListener(actionEvent -> {
+            Map<Character, Integer> huffmanFrequencies = new HashMap<>();
             readFile();
             Huffman huffman = new Huffman(text);
-            System.out.println(huffman.encode());
-            writeBinaryFile(toBinary(huffman.encode()));
+            String compressedText = huffman.encode(huffmanFrequencies) ;
+            System.out.println(compressedText);
+            writeBinaryFile(huffmanFrequencies, compressedText);
         });
 
         //---------------------------------------------------------
+
         decompressButton.addActionListener(actionEvent -> {
-            readBinaryFile();
+            Map<Character, Integer> huffmanFrequencies = readBinaryFile();
             Huffman huffman = new Huffman(text);
-//            System.out.println(huffman.decode());
-//            writeToFile(huffman.decode()) ;
+            writeToFile(text);
+            System.out.println(huffman.decode(huffmanFrequencies));
+            writeToFile(huffman.decode(huffmanFrequencies)) ;
         });
     }
 
@@ -104,16 +110,14 @@ public class OptionWindow extends JDialog implements ActionListener {
     //---------------------------------------------------------
 
     public void writeToFile(String content){
-        if (text == null) {
+        if (content == null) {
             System.out.println("Error Occurred during writing !!!");
             return;
         }
 
-        // ----------------------------------------------------
-
         // Writing the content to a file
         try (BufferedWriter writer = new BufferedWriter(new FileWriter("Output.txt"))) {
-            writer.write(text);
+            writer.write(content);
         } catch (IOException e) {
             System.out.println(e.getMessage()); // Handle the exception as needed (print, log, or throw)
         }
@@ -121,80 +125,54 @@ public class OptionWindow extends JDialog implements ActionListener {
 
     //---------------------------------------------------------
 
-    private void readBinaryFile(){
-        try {
-            FileInputStream fos = new FileInputStream("Output.bin");
-            byte[] binaryArray = new byte[fos.available()];
-            if(fos.read(binaryArray) == -1){
-                System.out.println("There are not data to read");
-                return;
-            }
-            System.out.println("Binary data has been successfully");
+    private Map<Character, Integer> readBinaryFile(){
+        Map<Character, Integer> huffmanFrequencies = new HashMap<>();
 
-            // convert hex to binary string
-            StringBuilder binaryString = new StringBuilder();
-            for (int i = 0; i < binaryArray.length; i++) {
-                if (i == binaryArray.length - 1){
-                    String binary = String.format("%8s", Integer.toBinaryString(binaryArray[i] & 0xFF)).replace(" ", "");
-                    binaryString.append(binary);
-                    break;
-                }
-                String binary = String.format("%8s", Integer.toBinaryString(binaryArray[i] & 0xFF)).replace(' ', '0');
-                binaryString.append(binary);
+        try (FileInputStream fis = new FileInputStream("Output.bin")) {
+            DataInputStream din = new DataInputStream(fis);
+
+            while (din.available() > 0) {
+                char character = (char) din.readByte();
+                int frequency = din.readByte();
+
+                // Add the character and frequency to the map
+                huffmanFrequencies.put(character, frequency);
+
+                // Skip the newline character
+                din.readByte();
             }
 
-            text = binaryString.toString() ;
-            fos.close();
+            // Read the compressed text
+            StringBuilder compressedText = new StringBuilder();
+            int c;
+            while ((c = din.read()) != -1) {
+                compressedText.append((char) c);
+            }
+            System.out.println(huffmanFrequencies);
+            text = compressedText.toString() ;
         } catch (IOException e) {
-            System.out.println(e.getMessage());
+            e.printStackTrace();
         }
+
+        return huffmanFrequencies;
     }
 
     //---------------------------------------------------------
 
-    public List<Byte> toBinary(String txt) {
-        int length = txt.length();
-        List<Byte> bytes = new Vector<>();
-
-        for (int i = 0; i < length; i += 8) {
-            String byteString ;
-            if (i + 8 < length){
-                byteString = txt.substring(i, i + 8);
-            }
-            else{
-                byteString = txt.substring(i) ;
-            }
-
-            // Using BigInteger to preserve leading zeros
-            BigInteger bigInt = new BigInteger(byteString, 2);
-            byte[] byteArray = bigInt.toByteArray();
-
-            // If the byteArray has more than one element, only take the last one
-            byte b = byteArray[byteArray.length - 1];
-            bytes.add(b);
-        }
-        return bytes;
-    }
-
-    //---------------------------------------------------------
-
-    public void writeBinaryFile(List<Byte> binaryString ){
-        byte[] binaryArray = new byte[binaryString.size()];
-        for (int i = 0; i < binaryString.size(); i++) {
-            binaryArray[i] = binaryString.get(i) ;
-        }
-
+    public void writeBinaryFile(Map<Character, Integer> huffmanFrequencies, String compressedText) {
         try {
-            // Convert binary string to bytes
+            FileOutputStream fos = new FileOutputStream("Output.bin");
+            DataOutputStream dout = new DataOutputStream(fos);
 
-            // Write binary data to a file
-            try (FileOutputStream fos = new FileOutputStream("Output.bin")) {
-                fos.write(binaryArray);
-                System.out.println("Binary data has been successfully");
+            for (Map.Entry<Character, Integer> entry : huffmanFrequencies.entrySet()) {
+                dout.writeChar(entry.getKey());
+                dout.writeInt(entry.getValue());
             }
-        } catch (IOException e) {
+            dout.writeBytes(compressedText);
+            dout.close();
+        }
+        catch (IOException e){
             System.out.println(e.getMessage());
         }
     }
-
 }

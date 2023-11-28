@@ -63,11 +63,9 @@ public class Huffman {
         return nodeQueue.poll() ;
     }
 
-    public String encode(){
+    public String encode(Map<Character, Integer> huffmanFrequencies){
         // frequencies part
-        Map<Character, Integer> huffmanFrequencies;
         {
-            huffmanFrequencies = new HashMap<>();
             for (char character :
                     text.toCharArray()) {
                 huffmanFrequencies.put(character, huffmanFrequencies.getOrDefault(character, 0) + 1);
