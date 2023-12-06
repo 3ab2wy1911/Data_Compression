@@ -6,8 +6,8 @@ import javax.swing.JPanel;
 
 
 public class MainWindow extends JDialog implements ActionListener {
-    private JButton button;
     private JPanel panel;
+    private JButton selectFileButton;
     private JLabel label;
 
     //    int operation;
@@ -26,21 +26,11 @@ public class MainWindow extends JDialog implements ActionListener {
         setDefaultCloseOperation(DISPOSE_ON_CLOSE);
         setVisible(true);
         setModal(true);
+        setSize(400,200);
 
 
         this.setDefaultCloseOperation(DISPOSE_ON_CLOSE);
-        this.setLayout(new FlowLayout());
-
-        label.setFont(new Font("Comic Sans",Font.BOLD,25));
-        label.setIconTextGap(-15);
-
-        button.setFont(new Font("Comic Sans",Font.BOLD,25));
-        button.setIconTextGap(-15);
-        button.setForeground(Color.white);
-        button.setBackground(Color.DARK_GRAY);
-        button.setBorder(BorderFactory.createEtchedBorder());
-        button.addActionListener(this);
-        panel.add(button,BorderLayout.SOUTH);
+        selectFileButton.addActionListener(this);
 
 
     }
@@ -49,7 +39,7 @@ public class MainWindow extends JDialog implements ActionListener {
 
     public void actionPerformed(ActionEvent e) {
 
-        if (e.getSource() == button) {
+        if (e.getSource() == selectFileButton) {
 
             JFileChooser fileChooser = new JFileChooser();
 

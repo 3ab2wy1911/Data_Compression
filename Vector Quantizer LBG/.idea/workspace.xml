@@ -5,12 +5,16 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="bd466afe-274a-4ace-b611-87e066fadddf" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/src/Codebook.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/PreviewImage.form" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/PreviewImage.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/Start.form" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/Start.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/VectorQuantization.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Standard Huffman/out/production/Standard Huffman/Classes/Huffman.class" beforeDir="false" afterPath="$PROJECT_DIR$/../Standard Huffman/out/production/Standard Huffman/Classes/Huffman.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Standard Huffman/out/production/Standard Huffman/Classes/Leaf.class" beforeDir="false" afterPath="$PROJECT_DIR$/../Standard Huffman/out/production/Standard Huffman/Classes/Leaf.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Standard Huffman/out/production/Standard Huffman/Classes/Node.class" beforeDir="false" afterPath="$PROJECT_DIR$/../Standard Huffman/out/production/Standard Huffman/Classes/Node.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Standard Huffman/out/production/Standard Huffman/Main.class" beforeDir="false" afterPath="$PROJECT_DIR$/../Standard Huffman/out/production/Standard Huffman/Main.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Standard Huffman/out/production/Standard Huffman/MainWindow.class" beforeDir="false" afterPath="$PROJECT_DIR$/../Standard Huffman/out/production/Standard Huffman/MainWindow.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Standard Huffman/out/production/Standard Huffman/OptionWindow.class" beforeDir="false" afterPath="$PROJECT_DIR$/../Standard Huffman/out/production/Standard Huffman/OptionWindow.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Standard Huffman/out/production/Standard Huffman/com/intellij/uiDesigner/core/GridConstraints.class" beforeDir="false" afterPath="$PROJECT_DIR$/../Standard Huffman/out/production/Standard Huffman/com/intellij/uiDesigner/core/GridConstraints.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Standard Huffman/src/MainWindow.form" beforeDir="false" afterPath="$PROJECT_DIR$/../Standard Huffman/src/MainWindow.form" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Standard Huffman/src/MainWindow.java" beforeDir="false" afterPath="$PROJECT_DIR$/../Standard Huffman/src/MainWindow.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Standard Huffman/src/OptionWindow.form" beforeDir="false" afterPath="$PROJECT_DIR$/../Standard Huffman/src/OptionWindow.form" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -32,20 +36,20 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent"><![CDATA[{
-  "keyToString": {
-    "RunOnceActivity.OpenProjectViewOnStart": "true",
-    "RunOnceActivity.ShowReadmeOnStart": "true",
-    "UI_DESIGNER_EDITOR_MODE.UIDesignerToolWindowManager.SHOW": "false",
-    "WebServerToolWindowFactoryState": "false",
-    "node.js.detected.package.eslint": "true",
-    "node.js.detected.package.tslint": "true",
-    "node.js.selected.package.eslint": "(autodetect)",
-    "node.js.selected.package.tslint": "(autodetect)",
-    "nodejs_package_manager_path": "npm",
-    "vue.rearranger.settings.migration": "true"
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;UI_DESIGNER_EDITOR_MODE.UIDesignerToolWindowManager.SHOW&quot;: &quot;false&quot;,
+    &quot;WebServerToolWindowFactoryState&quot;: &quot;false&quot;,
+    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
+    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
+    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
+    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
+    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
+    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
   }
-}]]></component>
+}</component>
   <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
   <component name="TaskManager">
     <task active="true" id="Default" summary="Default task">
@@ -56,6 +60,7 @@
       <updated>1701750997248</updated>
       <workItem from="1701750998194" duration="1565000" />
       <workItem from="1701756351112" duration="11512000" />
+      <workItem from="1701786005536" duration="86000" />
     </task>
     <servers />
   </component>
