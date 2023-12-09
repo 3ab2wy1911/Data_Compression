@@ -28,7 +28,6 @@ public class OptionWindow extends JDialog implements ActionListener {
         setVisible(true);
         setModal(true);
 
-
         this.file = file;
         this.text = "";
         this.setDefaultCloseOperation(DISPOSE_ON_CLOSE);
@@ -42,24 +41,6 @@ public class OptionWindow extends JDialog implements ActionListener {
 
         assert file != null;
         label.setText("File Name : " + file.getName());
-        label.setFont(new Font("Comic Sans",Font.BOLD,18));
-        label.setIconTextGap(-15);
-
-        compressButton.setFont(new Font("Comic Sans",Font.BOLD,18));
-        compressButton.setIconTextGap(-15);
-        compressButton.setForeground(Color.white);
-        compressButton.setBackground(Color.DARK_GRAY);
-        compressButton.setBorder(BorderFactory.createEtchedBorder());
-        compressButton.addActionListener(this);
-
-
-        decompressButton.setFont(new Font("Comic Sans",Font.BOLD,18));
-        decompressButton.setIconTextGap(-15);
-        decompressButton.setForeground(Color.white);
-        decompressButton.setBackground(Color.DARK_GRAY);
-        decompressButton.setBorder(BorderFactory.createEtchedBorder());
-        decompressButton.addActionListener(this);
-
 
         //--------------------------------------------------
 

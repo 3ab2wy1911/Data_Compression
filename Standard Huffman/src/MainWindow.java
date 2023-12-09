@@ -30,25 +30,11 @@ public class MainWindow extends JDialog implements ActionListener {
 
         this.setDefaultCloseOperation(DISPOSE_ON_CLOSE);
         this.setLayout(new FlowLayout());
-
-        label.setFont(new Font("Comic Sans",Font.BOLD,25));
-        label.setIconTextGap(-15);
-
-        button.setFont(new Font("Comic Sans",Font.BOLD,25));
-        button.setIconTextGap(-15);
-        button.setForeground(Color.white);
-        button.setBackground(Color.DARK_GRAY);
-        button.setBorder(BorderFactory.createEtchedBorder());
-        button.addActionListener(this);
-        panel.add(button,BorderLayout.SOUTH);
-
-
     }
 
     //----------------------------------------------------------------
 
     public void actionPerformed(ActionEvent e) {
-
         if (e.getSource() == button) {
 
             JFileChooser fileChooser = new JFileChooser();
