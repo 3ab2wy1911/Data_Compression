@@ -5,16 +5,13 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="bd466afe-274a-4ace-b611-87e066fadddf" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/../Standard Huffman/out/production/Standard Huffman/Classes/Huffman.class" beforeDir="false" afterPath="$PROJECT_DIR$/../Standard Huffman/out/production/Standard Huffman/Classes/Huffman.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../Standard Huffman/out/production/Standard Huffman/Classes/Leaf.class" beforeDir="false" afterPath="$PROJECT_DIR$/../Standard Huffman/out/production/Standard Huffman/Classes/Leaf.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../Standard Huffman/out/production/Standard Huffman/Classes/Node.class" beforeDir="false" afterPath="$PROJECT_DIR$/../Standard Huffman/out/production/Standard Huffman/Classes/Node.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../Standard Huffman/out/production/Standard Huffman/Main.class" beforeDir="false" afterPath="$PROJECT_DIR$/../Standard Huffman/out/production/Standard Huffman/Main.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../Standard Huffman/out/production/Standard Huffman/MainWindow.class" beforeDir="false" afterPath="$PROJECT_DIR$/../Standard Huffman/out/production/Standard Huffman/MainWindow.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../Standard Huffman/out/production/Standard Huffman/OptionWindow.class" beforeDir="false" afterPath="$PROJECT_DIR$/../Standard Huffman/out/production/Standard Huffman/OptionWindow.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../Standard Huffman/out/production/Standard Huffman/com/intellij/uiDesigner/core/GridConstraints.class" beforeDir="false" afterPath="$PROJECT_DIR$/../Standard Huffman/out/production/Standard Huffman/com/intellij/uiDesigner/core/GridConstraints.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../Standard Huffman/src/MainWindow.form" beforeDir="false" afterPath="$PROJECT_DIR$/../Standard Huffman/src/MainWindow.form" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../Standard Huffman/src/MainWindow.java" beforeDir="false" afterPath="$PROJECT_DIR$/../Standard Huffman/src/MainWindow.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../Standard Huffman/src/OptionWindow.form" beforeDir="false" afterPath="$PROJECT_DIR$/../Standard Huffman/src/OptionWindow.form" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/Vector Quantizer LBG/Codebook.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Vector Quantizer LBG/Codebook.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/Vector Quantizer LBG/Start.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Vector Quantizer LBG/Start.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/Vector Quantizer LBG/VectorQuantization.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Vector Quantizer LBG/VectorQuantization.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Codebook.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Start.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Start.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/VectorQuantization.java" beforeDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -42,6 +39,7 @@
     &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
     &quot;UI_DESIGNER_EDITOR_MODE.UIDesignerToolWindowManager.SHOW&quot;: &quot;false&quot;,
     &quot;WebServerToolWindowFactoryState&quot;: &quot;false&quot;,
+    &quot;last_opened_file_path&quot;: &quot;E:/Programming/FCAI - Assignments &amp; Projects/Year 3 CS/Data_Compression/Vector Quantizer LBG&quot;,
     &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
     &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
     &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
@@ -61,6 +59,13 @@
       <workItem from="1701750998194" duration="1565000" />
       <workItem from="1701756351112" duration="11512000" />
       <workItem from="1701786005536" duration="86000" />
+      <workItem from="1702318779932" duration="1752000" />
+      <workItem from="1702321525108" duration="12000" />
+      <workItem from="1702370581794" duration="1594000" />
+      <workItem from="1702372217573" duration="7960000" />
+      <workItem from="1702406736025" duration="913000" />
+      <workItem from="1702456354130" duration="12000" />
+      <workItem from="1702477459822" duration="1634000" />
     </task>
     <servers />
   </component>

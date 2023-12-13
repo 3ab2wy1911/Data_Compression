@@ -10,6 +10,7 @@ public class Start extends JDialog{
     private JButton compressButton;
     private JButton deCompressButton;
     private final VectorQuantization LBG;
+    private Image image;
     BufferedImage originalImage, compressedImage;
 
     //----------------------------------------------------------------------------------------
@@ -25,29 +26,42 @@ public class Start extends JDialog{
         setVisible(true);
         setModal(true);
 
+
+        this.image = new Image();
         this.LBG = new VectorQuantization();
 
         //__________________________________________________________________________________________________________________
 
         compressButton.addActionListener(actionEvent -> {
-            File file = new File(selectFile().getAbsolutePath());
+            String path =selectFile().getAbsolutePath();
+            File file = new File(path);
             try {
                 originalImage = ImageIO.read(file);
-                compressedImage = LBG.compress(originalImage);
-                new PreviewImage(null, originalImage , compressedImage);
-                dispose();
+                compressedImage = ImageIO.read(new File("outputImage.png"));
+                image.readImage(path);
+                LBG.compress(image,2);    // what is the vector size ??
+//                compressedImage = LBG.writeImage(image);
+                // Select the image then compress it then write it and pass the 2 images .
+
+
             } catch (IOException e) {
-                throw new RuntimeException(e);
+                JOptionPane.showMessageDialog(Start.this,
+                        e,
+                        "Error!!!",
+                        JOptionPane.INFORMATION_MESSAGE);
+                return;
             }
+            new PreviewImage(null, originalImage, compressedImage);
+            dispose();
         });
 
         //__________________________________________________________________________________________________________________
 
 
         deCompressButton.addActionListener(actionEvent -> {
-            //File file = new File(selectFile().getAbsolutePath());
-            // read the file in binary then convert it into the compressed image then decompress it into the
-            // original image and save them.
+            File file = new File(selectFile().getAbsolutePath());
+//            compressedImage = LBG.writeFile(LBG.ReadFile(file););
+            // read the file in binary then convert it into the  image then pass the 2 images.
         });
     }
 
